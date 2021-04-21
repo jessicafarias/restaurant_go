@@ -9,12 +9,13 @@ import (
 
 	"github.com/gorilla/mux"
 	"restaurant_go/Restaurant"
+	"restaurant_go/Database"
 )
 
 var restaurants = restaurant.AllRestaurants{
 	{
 		ID:          "1",
-		Nombre:       "TacoQueto",
+		Nombre:      "TacoQueto",
 		Description: "Deliciosos taquitos",
 	},
 }
@@ -29,7 +30,7 @@ func createRestaurant(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		fmt.Fprintf(w, "Kindly enter data with the restaurant title and description only in order to update")
 	}
-	
+
 	json.Unmarshal(reqBody, &newRestaurant)
 	restaurants = append(restaurants, newRestaurant)
 	w.WriteHeader(http.StatusCreated)
@@ -90,6 +91,8 @@ func main() {
 	router.HandleFunc("/restaurant/{id}", getRestaurantById).Methods("GET")
 	router.HandleFunc("/restaurant/{id}", updateRestaurantById).Methods("PATCH")
 	router.HandleFunc("/restaurant/{id}", deleteRestaurant).Methods("DELETE")
+  connection := DbConnection.Connection()
+	fmt.Println(connection)
 	fmt.Println("Server is running on port: 8080")
 	log.Fatal(http.ListenAndServe(":8080", router))
 }
