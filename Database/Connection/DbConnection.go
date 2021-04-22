@@ -6,44 +6,43 @@ import (
 
 	_ "github.com/lib/pq"
 )
+
 const (
-	host ="otto.db.elephantsql.com"
-	port ="5432"
-	user ="wscjqhpz"
-	password ="F_nvM0-Ndv1c3iDvnQiRsvSKZWUvGsAJ"
-	dbname = "wscjqhpz"
+	host     = "otto.db.elephantsql.com"
+	port     = "5432"
+	user     = "wscjqhpz"
+	password = "F_nvM0-Ndv1c3iDvnQiRsvSKZWUvGsAJ"
+	dbname   = "wscjqhpz"
 )
 
 //Open Database
-func Open () (*sql.DB, error) {
+func Open() (*sql.DB, error) {
 	psqlInfo := fmt.Sprintf("host=%s port=%v user=%s "+
-    "password=%s dbname=%s sslmode=disable",
-    host, port, user, password, dbname)
-  db, err := sql.Open("postgres", psqlInfo)
+		"password=%s dbname=%s sslmode=disable",
+		host, port, user, password, dbname)
+	db, err := sql.Open("postgres", psqlInfo)
 	if err != nil {
-    panic(err)
+		panic(err)
 
-  }
+	}
 	err = db.Ping()
 	if err != nil {
 		panic(err)
-  }
+	}
 	fmt.Println("Successfully connected")
 	return db, err
 
 }
 
 //Close Database
-func Disconnect(db *sql.DB){
+func Disconnect(db *sql.DB) {
 	db.Close()
 }
 
-
-
 //Confirm available connection
-func Connection() string{
-  db, err := Open()
-	if (err != nil){
+func Connection() string {
+	db, err := Open()
+	if err != nil {
 		fmt.Print("Something goes wrong")
 	}
 	Disconnect(db)

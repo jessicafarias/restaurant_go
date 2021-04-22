@@ -19,7 +19,7 @@ type AllRestaurants struct {
 //Define Restaurant
 type Restaurant struct {
 	ID          string `json:"ID"`
-	Nombre       string `json:"Nombre"`
+	Nombre      string `json:"Nombre"`
 	Description string `json:"Description"`
 }
 

@@ -20,7 +20,7 @@ Ctrl + Shift + I
 
 //Define Restaurant
 type Comment struct {
-	Id           int `json:"Id"`
+	Id           int    `json:"Id"`
 	RestaurantId int    `json:"RestaurantId"`
 	Body         string `json:"Body"`
 	Username     string `json:"Username"`
