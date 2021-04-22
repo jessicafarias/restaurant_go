@@ -9,7 +9,8 @@ import (
 
 	"github.com/gorilla/mux"
 	"restaurant_go/Restaurant"
-	"restaurant_go/Database"
+	"restaurant_go/Database/Connection"
+	"restaurant_go/Database/Data"
 )
 
 var restaurants = restaurant.AllRestaurants{
@@ -93,6 +94,7 @@ func main() {
 	router.HandleFunc("/restaurant/{id}", deleteRestaurant).Methods("DELETE")
   connection := DbConnection.Connection()
 	fmt.Println(connection)
+	DbConnectionData.NewRestaurant("Segundo")
 	fmt.Println("Server is running on port: 8080")
 	log.Fatal(http.ListenAndServe(":8080", router))
 }
