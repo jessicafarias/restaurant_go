@@ -86,7 +86,7 @@ func GetRestaurantById(id string) restaurant.Restaurant {
 	case sql.ErrNoRows:
 		fmt.Println("No rows were returned!")
 	case nil:
-		fmt.Println(restaurant)
+			fmt.Println(restaurant)
 	default:
 		panic(err)
 	}
@@ -109,7 +109,6 @@ func GetAllRestaurants() restaurant.AllRestaurants {
 		if err != nil {
 			panic(err)
 		}
-		fmt.Println(restaurant)
 		group = append(group, restaurant)
 	}
 	err = rows.Err()
@@ -136,7 +135,6 @@ func GetAllCommentsByRestaurantId(id string) comment.Comments {
 		if err != nil {
 			panic(err)
 		}
-		fmt.Println(commentario)
 		groupcomments = append(groupcomments, commentario)
 	}
 	err = rows.Err()

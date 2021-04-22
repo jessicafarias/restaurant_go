@@ -46,7 +46,7 @@ func getRestaurantById(w http.ResponseWriter, r *http.Request) {
 //INDEX /restaurants
 func getRestaurants(w http.ResponseWriter, r *http.Request) {
 	restaurants = DbConnectionData.GetAllRestaurants()
-	json.NewEncoder(w).Encode(restaurants)
+	json.NewEncoder(w).Encode(restaurants)	
 }
 
 // UPDATE restaurant/1 (not implemented)
