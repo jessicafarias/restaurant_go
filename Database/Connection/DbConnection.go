@@ -14,6 +14,7 @@ const (
 	dbname = "wscjqhpz"
 )
 
+//Open Database
 func Open () (*sql.DB, error) {
 	psqlInfo := fmt.Sprintf("host=%s port=%v user=%s "+
     "password=%s dbname=%s sslmode=disable",
@@ -32,12 +33,15 @@ func Open () (*sql.DB, error) {
 
 }
 
+//Close Database
 func Disconnect(db *sql.DB){
 	db.Close()
 	fmt.Println("Disconnected")
 }
 
 
+
+//Confirm available connection
 func Connection() string{
   db, err := Open()
 	if (err != nil){
