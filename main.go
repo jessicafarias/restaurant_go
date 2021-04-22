@@ -7,8 +7,8 @@ import (
 	"log"
 	"net/http"
 
-	"restaurant_go/Database/Connection"
 	"restaurant_go/Database/DbConnectionData"
+	comment "restaurant_go/Model/Comment.go"
 	"restaurant_go/Model/Restaurant"
 
 	"github.com/gorilla/mux"
@@ -83,6 +83,34 @@ func deleteRestaurant(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+
+// POST comment
+// {"Username": "Mildred", "Body": "Body", "RestaurantId":1} 
+func createComment(w http.ResponseWriter, r *http.Request) {
+	var newComment comment.Comment
+	
+	reqBody, err := ioutil.ReadAll(r.Body)
+	if err != nil {
+		fmt.Fprintf(w, "Kindly enter data with the comment parameters")
+	}
+
+	json.Unmarshal(reqBody, &newComment)
+	err = DbConnectionData.NewComment(newComment)
+	if (err != nil) {
+	panic(err)
+	}
+	
+	w.WriteHeader(http.StatusCreated)
+	json.NewEncoder(w).Encode(newComment)
+}
+
+// SHOW All comments by Restaurant ID
+func getComments(w http.ResponseWriter, r *http.Request) {
+	restaurantID := mux.Vars(r)["restaurant_id"]
+	commentsbyid := DbConnectionData.GetAllCommentsByRestaurantId(restaurantID)
+	json.NewEncoder(w).Encode(commentsbyid)
+}
+
 func main() {
 	router := mux.NewRouter().StrictSlash(true)
 	router.HandleFunc("/", homeLink)
@@ -91,9 +119,10 @@ func main() {
 	router.HandleFunc("/restaurant/{id}", getRestaurantById).Methods("GET")
 	router.HandleFunc("/restaurant/{id}", updateRestaurantById).Methods("PATCH")
 	router.HandleFunc("/restaurant/{id}", deleteRestaurant).Methods("DELETE")
-	connection := DbConnection.Connection()
-	fmt.Println(connection)
-	DbConnectionData.GetAllCommentsByRestaurantId(1)
+	
+	router.HandleFunc("/comment", createComment).Methods("POST")
+	router.HandleFunc("/comments/{restaurant_id}", getComments).Methods("GET")
+
 	fmt.Println("Server is running on port: 8080")
 	log.Fatal(http.ListenAndServe(":8080", router))
 }

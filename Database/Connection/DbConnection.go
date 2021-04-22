@@ -36,7 +36,6 @@ func Open () (*sql.DB, error) {
 //Close Database
 func Disconnect(db *sql.DB){
 	db.Close()
-	fmt.Println("Disconnected")
 }
 
 
