@@ -8,11 +8,11 @@ import (
 )
 
 const (
-	host     = "otto.db.elephantsql.com"
-	port     = "5432"
-	user     = "wscjqhpz"
-	password = "F_nvM0-Ndv1c3iDvnQiRsvSKZWUvGsAJ"
-	dbname   = "wscjqhpz"
+	host     = "10.10.14.139"
+	port     = "1433"
+	user     = "usrsprb"
+	password = "Banco2014."
+	dbname   = "Banca_Movil_GT_3_Desa"
 )
 
 //Open Database
