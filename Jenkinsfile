@@ -28,7 +28,7 @@ pipeline {
                     }
                 }                                   
             }
-				state('testing'){
+				stage('testing'){
 					steps{
 						script{
 							sh '''
