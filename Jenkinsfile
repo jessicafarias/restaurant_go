@@ -4,7 +4,7 @@ pipeline {
         string(name: 'name_container', defaultValue: 'restaurant-go-api-rest', description: 'nombre de la imagen')
         string(name: 'name_imagen', defaultValue: 'restaurant-go-api-rest', description: 'nombre de la imagen')
         string(name: 'tag_imagen', defaultValue: 'latest', description: 'etiqueta de la imagen')
-        string(name: 'puerto_imagen', defaultValue: '8800', description: 'etiqueta de la imagen')
+        string(name: 'puerto_imagen', defaultValue: '8080', description: 'etiqueta de la imagen')
     }
     environment {
         name_final = "${name_container}${tag_imagen}${puerto_imagen}"        
@@ -22,7 +22,7 @@ pipeline {
                     sh ''' 
 												echo *****REMOVE AND STOP CONTAINER*****
                         sudo docker stop ${name_final}
-												sudo docker rm ${name_final}
+												sudo docker rmi ${name_final}
                         sudo docker rm -vf ${name_final}
                     '''
                     }
@@ -53,8 +53,8 @@ pipeline {
             steps {
                 script{
                     sh ''' 
-												echo *****RUN DOCKER*****
-                        docker run  -dtp ${puerto_imagen}:80 --name ${name_final} ${name_imagen}:${tag_imagen}
+                                    echo *****RUN DOCKER*****
+                        docker run  -dtp ${puerto_imagen}:8080 --name ${name_final} ${name_imagen}:${tag_imagen}
                         
 										'''
                     }
