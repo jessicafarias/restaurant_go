@@ -20,6 +20,7 @@ pipeline {
             steps {
                 script{
                     sh ''' 
+												*****echo REMOVE AND STOP CONTAINER*****
                         sudo docker stop ${name_final}
                         sudo docker rm -vf ${name_final}
                     '''
@@ -30,6 +31,7 @@ pipeline {
 					steps{
 						script{
 							sh '''
+								*****echo TESTING DUMMY TEST*****
 								go test Database/Connection/DbConnection_test.go 
 							'''
 						}
@@ -39,6 +41,7 @@ pipeline {
             steps {
                 script{
                     sh ''' 
+										*****echo BUILDING IMAGE*****
                     docker build . -t ${name_imagen}:${tag_imagen}
                     '''
                     }
@@ -48,19 +51,11 @@ pipeline {
             steps {
                 script{
                     sh ''' 
+												*****echo RUN DOCKER*****
                         docker run  -dtp ${puerto_imagen}:80 --name ${name_final} ${name_imagen}:${tag_imagen}
                     '''
                     }
                 }                                  
-            }
-            stage('command') {
-            steps {
-                script{
-                    sh ''' 
-                      echo $USER done SUCCESS
-                    '''
-                    }
-                }                                   
             }
         }
     }
