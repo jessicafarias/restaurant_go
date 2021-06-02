@@ -33,7 +33,8 @@ pipeline {
 						script{
 							sh '''
 								echo *****TESTING DUMMY TEST*****
-								go test Database/Connection/DbConnection_test.go 
+								go test ./... # for all
+								# go test for test only main
 							'''
 						}
 					}
@@ -54,7 +55,8 @@ pipeline {
                     sh ''' 
 												echo *****RUN DOCKER*****
                         docker run  -dtp ${puerto_imagen}:80 --name ${name_final} ${name_imagen}:${tag_imagen}
-                    '''
+                        
+										'''
                     }
                 }                                  
             }
