@@ -26,6 +26,15 @@ pipeline {
                     }
                 }                                   
             }
+				state('testing'){
+					steps{
+						script{
+							sh '''
+								go test Database/Connection/DbConnection_test.go 
+							'''
+						}
+					}
+				}
         stage('build') {
             steps {
                 script{
@@ -48,7 +57,7 @@ pipeline {
             steps {
                 script{
                     sh ''' 
-                      sudo   docker exec  ${name_final} echo 1
+                      echo $USER done SUCCESS
                     '''
                     }
                 }                                   
