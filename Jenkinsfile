@@ -22,6 +22,7 @@ pipeline {
                     sh ''' 
 												*****echo REMOVE AND STOP CONTAINER*****
                         sudo docker stop ${name_final}
+												sudo docker rm ${name_final}
                         sudo docker rm -vf ${name_final}
                     '''
                     }
