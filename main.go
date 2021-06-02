@@ -7,7 +7,6 @@ import (
 	"log"
 	"net/http"
 
-	DbConnection "restaurant_go/Database/Connection"
 	"restaurant_go/Database/DbConnectionData"
 	comment "restaurant_go/Model/Comment.go"
 	"restaurant_go/Model/Restaurant"
@@ -121,7 +120,6 @@ func main() {
 
 	router.HandleFunc("/comment", createComment).Methods("POST")
 	router.HandleFunc("/comments/{restaurant_id}", getComments).Methods("GET")
-	DbConnection.Connection()
 	fmt.Println("Server is running on port: 8080")
 	log.Fatal(http.ListenAndServe(":8080", router))
 }

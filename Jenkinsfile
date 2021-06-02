@@ -44,7 +44,7 @@ pipeline {
                 script{
                     sh ''' 
 										echo *****BUILDING IMAGE*****
-                    docker build . -t ${name_imagen}:${tag_imagen}
+                    docker build -t ${name_imagen}:${tag_imagen} .
                     '''
                     }
                 }                                       
