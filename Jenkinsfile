@@ -13,7 +13,7 @@ pipeline {
     stage('stop/rm') {
       when {
         expression { 
-          DOCKER_EXIST = sh(returnStdout: false, script: 'echo "$(docker ps -q --filter name=${name_final})"').trim()
+          DOCKER_EXIST = sh(returnStdout: true, script: 'echo "$(docker ps -q --filter name=${name_final})"').trim()
           return  DOCKER_EXIST != '' 
         }
       }
@@ -24,7 +24,6 @@ pipeline {
             sudo docker stop ${name_final}
             sudo docker rmi ${name_final}
             sudo docker rm -vf ${name_final}
-            sudo docker rm ${name_container}
           '''
           }
         }                                   
