@@ -13,7 +13,7 @@ pipeline {
     stage('stop/rm') {
       when {
         expression { 
-          DOCKER_EXIST = sh(returnStdout: true, script: 'echo "$(docker ps -q --filter name=${name_final})"').trim()
+          DOCKER_EXIST = sh(returnStdout: false, script: 'echo "$(docker ps -q --filter name=${name_final})"').trim()
           return  DOCKER_EXIST != '' 
         }
       }
