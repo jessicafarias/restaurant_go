@@ -69,7 +69,9 @@ pipeline {
             echo 'SUCCESS THE PROJECT SHOULD BE RUN ON LOCALHOST 8080'
         }
         failure {
-            echo 'Somethines goes wrong'
+            mail to: 'jfarias@tribalworldwide.gt',
+              subject: "Failed Pipeline",
+              body: "Seams like there is a runing process on port 8080"
         }
         unstable {
             echo 'This will run only if the run was marked as unstable'
