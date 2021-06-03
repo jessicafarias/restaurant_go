@@ -24,6 +24,7 @@ pipeline {
             sudo docker stop ${name_final}
             sudo docker rmi ${name_final}
             sudo docker rm -vf ${name_final}
+            sudo docker rm ${name_container}
           '''
           }
         }                                   
@@ -63,7 +64,7 @@ pipeline {
     }
     post {
         always {
-            echo 'This will always run'
+            echo 'STATUS'
         }
         success {
             echo 'SUCCESS THE PROJECT SHOULD BE RUN ON LOCALHOST 8080'
@@ -75,8 +76,7 @@ pipeline {
             echo 'This will run only if the run was marked as unstable'
         }
         changed {
-            echo 'This will run only if the state of the Pipeline has changed'
-            echo 'For example, if the Pipeline was previously failing but is now successful'
+            echo 'Somethin on Pipeline has changed'
         }
     }
   }
