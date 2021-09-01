@@ -9,6 +9,7 @@ import (
 
 	"restaurant_go/Database/DbConnectionData"
 	comment "restaurant_go/Model/Comment.go"
+	opinion "restautant_go/Model/Opinions"
 	"restaurant_go/Model/Restaurant"
 
 	"github.com/gorilla/mux"
@@ -47,7 +48,7 @@ func getRestaurantById(w http.ResponseWriter, r *http.Request) {
 func getRestaurants(w http.ResponseWriter, r *http.Request) {
 	restaurants = DbConnectionData.GetAllRestaurants()
 	json.NewEncoder(w).Encode(restaurants)
-}
+}	
 
 // UPDATE restaurant/1 (not implemented)
 func updateRestaurantById(w http.ResponseWriter, r *http.Request) {
@@ -87,6 +88,8 @@ func createComment(w http.ResponseWriter, r *http.Request) {
 	// {"Username": "Mildred", "Body": "Body", "RestaurantId":1}
 
 	var newComment comment.Comment
+	var newOpinion opinion.opinion
+	fmt.Fprintln(newOpinion)
 	reqBody, err := ioutil.ReadAll(r.Body)
 	if err != nil {
 		fmt.Fprintf(w, "Kindly enter data with the comment parameters")
@@ -112,7 +115,7 @@ func getComments(w http.ResponseWriter, r *http.Request) {
 func main() {
 	router := mux.NewRouter().StrictSlash(true)
 	router.HandleFunc("/", homeLink)
-	router.HandleFunc("/restaurant", createRestaurant).Methods("POST")
+	router.HandleFunc("/restaurant", createRestaurant).Methods(http.MethodPost)
 	router.HandleFunc("/restaurants", getRestaurants).Methods("GET")
 	router.HandleFunc("/restaurant/{id}", getRestaurantById).Methods("GET")
 	router.HandleFunc("/restaurant/{id}", updateRestaurantById).Methods("PATCH")
@@ -120,6 +123,6 @@ func main() {
 
 	router.HandleFunc("/comment", createComment).Methods("POST")
 	router.HandleFunc("/comments/{restaurant_id}", getComments).Methods("GET")
-	fmt.Println("Server is running on port: 8080")
-	log.Fatal(http.ListenAndServe(":8080", router))
+	fmt.Println("Server is running on port: 8083")
+	log.Fatal(http.ListenAndServe(":8083", router))
 }
